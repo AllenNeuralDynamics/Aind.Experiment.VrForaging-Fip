@@ -75,7 +75,10 @@ async def experiment(launcher: Launcher) -> None:
 
     # Run the task via Bonsai
     bonsai_app = AindBehaviorServicesBonsaiApp(
-        BonsaiAppSettings(workflow=Path(r"./Aind.Behavior.VrForaging/src/main.bonsai"))
+        BonsaiAppSettings(
+            executable=Path(r"./Aind.Behavior.VrForaging/bonsai/bonsai.exe"),
+            workflow=Path(r"./Aind.Behavior.VrForaging/src/main.bonsai"),
+        )
     )
     fip_app = AindBehaviorServicesBonsaiApp(
         BonsaiAppSettings(
@@ -147,7 +150,7 @@ def _dump_suggestion(launcher: Launcher, suggestion: CurriculumSuggestion) -> No
 
 
 class ByAnimalManipulatorModifier:
-    def __init__(self, picker: DataversePicker, launcher: Launcher) -> None:
+    def __init__(self, picker: DefaultBehaviorPicker, launcher: Launcher) -> None:
         self._picker = picker
         self._launcher = launcher
 
