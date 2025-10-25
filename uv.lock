@@ -42,7 +42,7 @@ wheels = [
 
 [[package]]
 name = "aind-behavior-vr-foraging"
-version = "0.6.1"
+version = "0.6.2rc1"
 source = { directory = "Aind.Behavior.VrForaging" }
 dependencies = [
     { name = "aind-behavior-services" },
@@ -177,7 +177,7 @@ requires-dist = [
 
 [[package]]
 name = "aind-physiology-fip"
-version = "0.1.2rc5"
+version = "0.1.2"
 source = { directory = "Aind.Physiology.Fip" }
 dependencies = [
     { name = "aind-behavior-services" },
