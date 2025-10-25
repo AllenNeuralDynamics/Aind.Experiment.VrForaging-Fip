@@ -13,4 +13,4 @@ dependencies = [
 
 [tool.uv.sources]
 aind-behavior-vr-foraging = { path = "./Aind.Behavior.VrForaging" }
-aind-physiology-fip = { path = "./FIP_DAQ_Control" }
+aind-physiology-fip = { path = "./Aind.Physiology.Fip" }

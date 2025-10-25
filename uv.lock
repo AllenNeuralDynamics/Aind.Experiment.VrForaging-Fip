@@ -131,16 +131,16 @@ wheels = [
 
 [[package]]
 name = "aind-data-schema-models"
-version = "4.3.0"
+version = "4.3.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "importlib-resources" },
     { name = "pydantic" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/2d/ea/a6b5bacf52de8e904ca9bb88dc1a5f8596dfa0b12fa5812e44041835d535/aind_data_schema_models-4.3.0.tar.gz", hash = "sha256:3608c89d91192d54dee40823e385e4f6dbdac658987af7fadefd68c02d3490fb", size = 324212, upload-time = "2025-09-22T21:54:25.374Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/17/50/5e8b0ad21a8d4fac6748780dfcefcb18d610d56852c16ab4db149d298077/aind_data_schema_models-4.3.1.tar.gz", hash = "sha256:82a89d78f20e5d5715c04ff20c35dac260bf59d992d91331b47e6e7b5a51e0e8", size = 324394, upload-time = "2025-10-25T00:11:20.156Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/11/e6/136ff5288b154c022c4cb7a047faf946755aca597a75490767a479936921/aind_data_schema_models-4.3.0-py3-none-any.whl", hash = "sha256:62703b4425009c930511de366a85fb57e5dc52f7493fd0a49871a90429e5832f", size = 297854, upload-time = "2025-09-22T21:54:24.216Z" },
+    { url = "https://files.pythonhosted.org/packages/70/56/c512ffa35b03e8eb2f91511b1955b6a30195e4bb5dfb223e03db4a36ad2d/aind_data_schema_models-4.3.1-py3-none-any.whl", hash = "sha256:209712231f2318c1f79a08edc32a92568bd2d4242bf2ff4054785d529da1cfa7", size = 298007, upload-time = "2025-10-25T00:11:18.673Z" },
 ]
 
 [[package]]
@@ -172,13 +172,13 @@ dependencies = [
 requires-dist = [
     { name = "aind-behavior-vr-foraging", extras = ["launcher"], directory = "Aind.Behavior.VrForaging" },
     { name = "aind-clabe" },
-    { name = "aind-physiology-fip", directory = "FIP_DAQ_Control" },
+    { name = "aind-physiology-fip", directory = "Aind.Physiology.Fip" },
 ]
 
 [[package]]
 name = "aind-physiology-fip"
 version = "0.1.2rc5"
-source = { directory = "FIP_DAQ_Control" }
+source = { directory = "Aind.Physiology.Fip" }
 dependencies = [
     { name = "aind-behavior-services" },
 ]

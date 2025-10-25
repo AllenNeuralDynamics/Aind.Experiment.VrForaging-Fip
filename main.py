@@ -82,8 +82,8 @@ async def experiment(launcher: Launcher) -> None:
     )
     fip_app = AindBehaviorServicesBonsaiApp(
         BonsaiAppSettings(
-            workflow=Path(r"./FIP_DAQ_Control/src/main.bonsai"),
-            executable=Path(r"./FIP_DAQ_Control/bonsai/bonsai.exe"),
+            workflow=Path(r"./Aind.Physiology.Fip/src/main.bonsai"),
+            executable=Path(r"./Aind.Physiology.Fip/bonsai/bonsai.exe"),
             is_editor_mode=True,
             is_start_flag=True,
         )

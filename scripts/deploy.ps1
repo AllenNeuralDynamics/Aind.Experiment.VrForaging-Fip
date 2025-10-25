@@ -7,7 +7,8 @@ Write-Output "Initializing and updating submodules..."
 
 & ./Aind.Behavior.VrForaging/scripts/deploy.ps1
 Set-Location (Split-Path -Parent $scriptDirectory)
-
+& ./Aind.Physiology.Fip/scripts/deploy.ps1
+Set-Location (Split-Path -Parent $scriptDirectory)
 Write-Output "Creating a Python  environment..."
 
 if (-not (Get-Command uv -ErrorAction SilentlyContinue)) {

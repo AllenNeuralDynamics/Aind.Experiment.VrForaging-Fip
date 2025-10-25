@@ -1,3 +1,6 @@
 [submodule "Aind.Behavior.VrForaging"]
 	path = Aind.Behavior.VrForaging
 	url = https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging
+[submodule "Aind.Physiology.Fip"]
+	path = Aind.Physiology.Fip
+	url = https://github.com/AllenNeuralDynamics/Aind.Physiology.Fip
