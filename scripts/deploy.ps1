@@ -7,8 +7,6 @@ Write-Output "Initializing and updating submodules..."
 
 & ./Aind.Behavior.VrForaging/scripts/deploy.ps1
 Set-Location (Split-Path -Parent $scriptDirectory)
-& ./FIP_DAQ_Control/scripts/deploy.ps1
-Set-Location (Split-Path -Parent $scriptDirectory)
 
 Write-Output "Creating a Python  environment..."
 

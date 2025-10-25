@@ -1,6 +1,3 @@
 [submodule "Aind.Behavior.VrForaging"]
 	path = Aind.Behavior.VrForaging
 	url = https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging
-[submodule "FIP_DAQ_Control"]
-	path = FIP_DAQ_Control
-	url = https://github.com/AllenNeuralDynamics/FIP_DAQ_Control
