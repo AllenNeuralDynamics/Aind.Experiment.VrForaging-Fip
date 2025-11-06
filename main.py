@@ -26,6 +26,7 @@ from aind_behavior_vr_foraging.data_mappers import (
 from aind_behavior_vr_foraging.rig import AindVrForagingRig
 from aind_behavior_vr_foraging.task_logic import AindVrForagingTaskLogic
 import aind_physiology_fip.rig
+from aind_physiology_fip.data_mappers import ProtoAcquisitionMapper
 
 logger = logging.getLogger(__name__)
 
@@ -132,6 +133,11 @@ async def experiment(launcher: Launcher) -> None:
     ads_session.write_standard_file(launcher.session_directory)
     ads_rig = AindRigDataMapper(rig=rig).map()
     ads_rig.write_standard_file(launcher.session_directory)
+
+    fip_extracted = ProtoAcquisitionMapper(launcher.session_directory).map()
+    (launcher.session_directory / "fip.json").write_text(
+        fip_extracted.model_dump_json(indent=2), encoding="utf-8"
+    )
 
     launcher.copy_logs()
     return
