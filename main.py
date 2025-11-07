@@ -129,6 +129,7 @@ async def experiment(launcher: Launcher) -> None:
         session=session,
         task_logic=task_logic,
         curriculum_suggestion=suggestion,
+        bonsai_app_settings=bonsai_app.settings,
     ).map()
     ads_session.write_standard_file(launcher.session_directory)
     ads_rig = AindRigDataMapper(rig=rig).map()
