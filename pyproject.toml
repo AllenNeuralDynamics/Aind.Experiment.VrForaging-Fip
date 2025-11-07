@@ -8,6 +8,7 @@ dependencies = [
     "aind-behavior-vr-foraging[launcher]",
     "aind-physiology-fip",
     "aind-clabe",
+    "ruff"
 ]
 
 
