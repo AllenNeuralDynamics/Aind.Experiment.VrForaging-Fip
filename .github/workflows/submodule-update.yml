@@ -29,10 +29,10 @@ jobs:
           for module in $(git config -f .gitmodules --get-regexp path | awk '{print $2}'); do
             url=$(git config -f .gitmodules submodule.$module.url)
 
-            if [[ $url =~ github.com[:/](.*)\.git$ ]]; then
+            if [[ $url =~ github.com[:/](.+?)(\.git)?$ ]]; then
               repo="${BASH_REMATCH[1]}"
             else
-              echo "Skipping non-GitHub submodule: $module"
+              echo "Skipping non-GitHub submodule: $module ($url)"
               continue
             fi
 
