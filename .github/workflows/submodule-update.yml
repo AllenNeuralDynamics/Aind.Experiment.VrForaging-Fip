@@ -59,6 +59,7 @@ jobs:
           echo "EOF" >> $GITHUB_OUTPUT
 
           if [[ "$UPDATED" == true ]]; then
+            rm -f changelog.txt
             git add $(git config -f .gitmodules --get-regexp path | awk '{print $2}')
           fi
 
