@@ -1,0 +1,45 @@
+name: Update Submodules
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "0 3 * * *"   # daily at 03:00 UTC
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout with submodules (non-recursive)
+        uses: actions/checkout@v6
+        with:
+          submodules: true # Do NOT recurse
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+      - name: Check for submodule updates
+        id: check
+        run: |
+          git submodule update --remote
+
+          # Check if anything changed after update
+          if git diff --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Create or update PR
+        if: steps.check.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "Update submodules"
+          title: "Update submodules"
+          body: "Automated update of all submodules."
+          branch: "update-submodules"
+          base: main
+          delete-branch: true
