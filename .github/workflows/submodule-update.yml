@@ -32,28 +32,37 @@ jobs:
             if [[ $url =~ github.com[:/](.*)\.git$ ]]; then
               repo="${BASH_REMATCH[1]}"
             else
+              echo "Skipping non-GitHub submodule: $module"
               continue
             fi
 
+            # Get latest stable GitHub release tag
             latest=$(gh release view -R "$repo" --json tagName --jq .tagName 2>/dev/null || echo "")
-            [ -z "$latest" ] && continue
+            if [ -z "$latest" ]; then
+              echo "No releases found for $module, skipping."
+              continue
+            fi
 
             pushd "$module" >/dev/null
+
             current=$(git describe --tags --abbrev=0 2>/dev/null || echo "NONE")
 
             if [ "$current" != "$latest" ]; then
-              git fetch --tags
+              git fetch --tags origin
               git checkout "$latest"
               CHANGELOG+="$module: $current -> $latest\n"
               UPDATED=true
             fi
+
             popd >/dev/null
           done
 
           echo -e "$CHANGELOG" > changelog.txt
           echo "changed=$UPDATED" >> $GITHUB_OUTPUT
 
-          $UPDATED && git add .
+          if [[ "$UPDATED" == true ]]; then
+            git add .
+          fi
 
       - uses: peter-evans/create-pull-request@v7
         if: steps.check.outputs.changed == 'true'
@@ -62,7 +71,7 @@ jobs:
           commit-message: "Update submodules to latest GitHub releases"
           title: "Update submodules to latest GitHub releases"
           body: |
-            Updated submodules to latest GitHub releases:
+            Updated submodules to latest stable GitHub releases:
 
             ```
             $(cat changelog.txt)
