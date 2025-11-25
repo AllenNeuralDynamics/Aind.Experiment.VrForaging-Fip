@@ -28,15 +28,12 @@ jobs:
 
           for module in $(git config -f .gitmodules --get-regexp path | awk '{print $2}'); do
             url=$(git config -f .gitmodules submodule.$module.url)
-
             if [[ $url =~ github.com[:/](.+?)(\.git)?$ ]]; then
               repo="${BASH_REMATCH[1]}"
             else
-              echo "Skipping non-GitHub submodule: $module ($url)"
               continue
             fi
 
-            # Get latest stable GitHub release tag
             latest=$(gh release view -R "$repo" --json tagName --jq .tagName 2>/dev/null || echo "")
             if [ -z "$latest" ]; then
               echo "No releases found for $module, skipping."
@@ -44,7 +41,6 @@ jobs:
             fi
 
             pushd "$module" >/dev/null
-
             current=$(git describe --tags --abbrev=0 2>/dev/null || echo "NONE")
 
             if [ "$current" != "$latest" ]; then
@@ -53,12 +49,14 @@ jobs:
               CHANGELOG+="$module: $current -> $latest\n"
               UPDATED=true
             fi
-
             popd >/dev/null
           done
 
           echo -e "$CHANGELOG" > changelog.txt
           echo "changed=$UPDATED" >> $GITHUB_OUTPUT
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          cat changelog.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
 
           if [[ "$UPDATED" == true ]]; then
             git add .
@@ -69,12 +67,12 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "Update submodules to latest GitHub releases"
-          title: "Update submodules to latest GitHub releases"
+          title: "Update submodules"
           body: |
             Updated submodules to latest stable GitHub releases:
 
             ```
-            $(cat changelog.txt)
+            ${{ steps.check.outputs.changelog }}
             ```
           branch: update-submodules
           base: main
