@@ -92,6 +92,7 @@ async def experiment(launcher: Launcher) -> None:
         executable=Path(r"./Aind.Physiology.Fip/bonsai/bonsai.exe"),
         temp_directory=launcher.temp_dir,
         rig=fip_rig,
+        session=session,
     )
 
     await asyncio.gather(bonsai_app.run_async(), fip_app.run_async())
