@@ -130,7 +130,8 @@ async def experiment(launcher: Launcher) -> None:
 
     DataMapperCli(
         data_path=launcher.session_directory,
-        repo_path=launcher.repository.working_tree_dir,  # type: ignore[arg-type]
+        repo_path=Path(launcher.repository.working_tree_dir)
+        / "Aind.Behavior.VrForaging",  # type: ignore[arg-type]
         curriculum_suggestion=suggestion_path,
         session_end_time=utcnow(),
     ).cli_cmd()
