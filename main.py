@@ -65,7 +65,9 @@ async def experiment(launcher: Launcher) -> None:
     input_trainer_state_path = launcher.save_temp_model(trainer_state)
 
     # Fetch rig settings
+    logger.info("Pick VR Foraging rig...")
     rig = picker.pick_rig(AindVrForagingRig)
+    logger.info("Pick FIP rig...")
     fip_rig = fip_picker.pick_rig(aind_physiology_fip.rig.AindPhysioFipRig)
 
     # Post-fetching modifications
