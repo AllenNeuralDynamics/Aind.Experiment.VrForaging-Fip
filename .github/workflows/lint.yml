@@ -1,0 +1,29 @@
+name: Lint
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  ruff:
+    runs-on: ubuntu-latest
+    name: Ruff
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: true
+
+      - uses: astral-sh/setup-uv@v10.0.1
+        with:
+          enable-cache: true
+
+      - name: Install python dependencies
+        run: uv sync
+
+      - name: Run ruff format
+        run: uv run ruff format --check
+
+      - name: Run ruff check
+        run: uv run ruff check

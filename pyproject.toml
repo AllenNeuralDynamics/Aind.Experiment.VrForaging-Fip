@@ -1,17 +1,28 @@
 [project]
 name = "aind-experiment-vr-foraging-fip"
-version = "0.2.0"
+version = "0.3.0"
 description = "A thin wrapper that runs VrForaging + FIP experiments"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "aind-behavior-vr-foraging[launcher, data]",
+    "aind-behavior-vr-foraging[data, mappers]",
+    "aind-behavior-vr-foraging-curricula",
     "aind-physiology-fip",
-    "aind-clabe",
+    "aind-clabe[aind-services, otel]>=0.12.2",
     "ruff"
 ]
 
 
 [tool.uv.sources]
-aind-behavior-vr-foraging = { path = "./Aind.Behavior.VrForaging" }
-aind-physiology-fip = { path = "./Aind.Physiology.Fip" }
+aind-behavior-vr-foraging = { path = "./Aind.Behavior.VrForaging/src/packages/aind_behavior_vr_foraging", editable = true }
+aind-behavior-vr-foraging-curricula = { path = "./Aind.Behavior.VrForaging/src/packages/aind_behavior_vr_foraging_curricula", editable = true }
+aind-physiology-fip = { path = "./Aind.Physiology.Fip", editable = true }
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+# Submodules are separate repositories with their own linting/CI; never lint them from here.
+extend-exclude = ["Aind.Behavior.VrForaging", "Aind.Physiology.Fip"]
+
+[tool.ruff.lint]
+extend-select = ["I"]
