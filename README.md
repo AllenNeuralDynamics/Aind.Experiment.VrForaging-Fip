@@ -8,16 +8,25 @@
 
 An repository for an experiment that acquires data from VrForaging and FIP.
 
+The plan is to keep adding physiology submodules (e.g. ephys, other photometry/imaging rigs)
+combined with VrForaging the same way FIP is. **Every physiology submodule pinned here is assumed
+to be compatible with the single pinned VrForaging version** — one known-good combination, not a
+matrix of versions. If you find a pinned combination that's actually incompatible, please open an
+issue.
+
 ## Architecture
 
 This repository is a thin composition layer, not a standalone codebase. It stitches together
-two independent Bonsai/Python projects, plus a small amount of glue code:
+independent Bonsai/Python projects (one behavior repo, one-or-more physiology repos), plus a small
+amount of glue code:
 
 - **`Aind.Behavior.VrForaging/`** and **`Aind.Physiology.Fip/`** — git submodules pointing at
   pinned releases of the [VrForaging](https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging)
-  and [FIP](https://github.com/AllenNeuralDynamics/Aind.Physiology.Fip) repositories. Each provides
-  its own Bonsai workflow (`src/main.bonsai`), rig/task-logic schemas, and data mappers. They are
-  developed, tested, and released independently of this repository.
+  (behavior) and [FIP](https://github.com/AllenNeuralDynamics/Aind.Physiology.Fip) (physiology)
+  repositories. Additional physiology modalities are added as further submodules alongside
+  `Aind.Physiology.Fip/`. Each submodule provides its own Bonsai workflow (`src/main.bonsai`),
+  rig/task-logic schemas, and data mappers, and is developed, tested, and released independently
+  of this repository.
 - **`common/`** — a small, uninstalled local package (no `pyproject.toml`, just plain Python
   importable because `main.py` runs from the repo root) holding launcher-orchestration helpers
   shared across experiments: curriculum evaluation, session confirmation, data QC, data transfer,
@@ -59,24 +68,26 @@ also pass any `clabe` launcher flags (e.g. `--frontend`, `--debug-mode`) after `
 
 ## Testing changes
 
-This repository has no automated tests of its own — the actual behavior lives in the two
+This repository has no automated tests of its own — the actual behavior lives in the
 submodules, which have their own test suites and CI. To validate a change here (e.g. bumping a
 submodule to a new release, or editing `main.py`/`common/`):
 
 1. Open a new branch off `main`.
 2. If you need to test against a new submodule release, update the pointer(s):
    ```powershell
-   cd Aind.Behavior.VrForaging   # or Aind.Physiology.Fip
+   cd Aind.Behavior.VrForaging   # or Aind.Physiology.Fip, or any other physiology submodule
    git fetch --tags
    git checkout <tag>
    cd ..
    ```
    (Note: a scheduled workflow, `.github/workflows/submodule-update.yml`, already opens a PR
-   automatically whenever a submodule has a newer GitHub release.)
+   automatically whenever a submodule has a newer GitHub release. It updates each submodule
+   independently — it does **not** verify that the resulting VrForaging + physiology combination
+   is actually compatible, so treat its PRs as a starting point, not a guarantee.)
 3. Run `uv sync` to pick up any dependency changes.
 4. Manually run the affected experiment(s) with `uv run clabe run main.py` on a rig (or with a
-   local/dev configuration) to confirm the behavior is correct — there is no substitute for an
-   end-to-end run here.
+   local/dev configuration) to confirm the VrForaging + physiology combination behaves correctly
+   — there is no substitute for an end-to-end run here.
 5. Open a pull request back to `main`. CI (`.github/workflows/lint.yml`) will run `ruff format
    --check` and `ruff check` against the root-level code (`main.py`, `common/`); it does not lint
    the submodules.
