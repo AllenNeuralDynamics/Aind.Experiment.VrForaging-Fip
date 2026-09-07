@@ -1,4 +1,4 @@
-"""CLABE launcher script for VrForaging + FIP experiments.
+"""CLABE launcher script for Aind.Behavior.VrForaging + Physiology experiments.
 
 Run with the generic clabe CLI, e.g.:
     clabe run main.py

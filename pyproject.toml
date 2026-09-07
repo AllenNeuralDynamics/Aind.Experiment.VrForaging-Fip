@@ -1,7 +1,7 @@
 [project]
 name = "aind-experiment-vr-foraging-fip"
 version = "0.3.0"
-description = "A thin wrapper that runs VrForaging + FIP experiments"
+description = "A thin wrapper that runs Aind.Behavior.VrForaging + Physiology experiments"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [

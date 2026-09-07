@@ -1,4 +1,4 @@
-# AIND Experiment: VrForaging + FIP
+# AIND Experiment: Aind.Behavior.VrForaging + Physiology
 
 > [!WARNING]
 > This repository is an **internal deployment** for the Allen Institute. It wires together
@@ -6,7 +6,7 @@
 > services (Dataverse, AIND watchdog/data-transfer, waterlog). It is unlikely to be directly
 > useful outside of the building without significant adaptation.
 
-An repository for an experiment that acquires data from VrForaging and FIP.
+A repository for an experiment that combines VrForaging with a physiology modality.
 
 The plan is to keep adding physiology submodules (e.g. ephys, other photometry/imaging rigs)
 combined with VrForaging the same way FIP is. **Every physiology submodule pinned here is assumed
@@ -23,8 +23,8 @@ amount of glue code:
 - **`Aind.Behavior.VrForaging/`** and **`Aind.Physiology.Fip/`** — git submodules pointing at
   pinned releases of the [VrForaging](https://github.com/AllenNeuralDynamics/Aind.Behavior.VrForaging)
   (behavior) and [FIP](https://github.com/AllenNeuralDynamics/Aind.Physiology.Fip) (physiology)
-  repositories. Additional physiology modalities are added as further submodules alongside
-  `Aind.Physiology.Fip/`. Each submodule provides its own Bonsai workflow (`src/main.bonsai`),
+  repositories. Additional physiology modalities are added as further `Aind.Physiology.*`
+  submodules. Each submodule provides its own Bonsai workflow (`src/main.bonsai`),
   rig/task-logic schemas, and data mappers, and is developed, tested, and released independently
   of this repository.
 - **`common/`** — a small, uninstalled local package (no `pyproject.toml`, just plain Python

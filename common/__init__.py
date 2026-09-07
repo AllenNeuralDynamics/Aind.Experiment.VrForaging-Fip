@@ -1,4 +1,4 @@
-"""Shared CLABE launcher helpers for the VrForaging + FIP experiments."""
+"""Shared CLABE launcher helpers for the Aind.Behavior.VrForaging + Physiology experiments."""
 
 from .launcher_helpers import (
     ByAnimalManipulatorModifier,
